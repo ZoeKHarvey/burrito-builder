@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { postNewOrder } from '../../apiCalls'
 
-class OrderForm extends Component {
+export class OrderForm extends Component {
   constructor(props) {
     super();
     this.props = props;
@@ -25,7 +25,7 @@ class OrderForm extends Component {
 
   handleSubmit = e => {
     console.log('props in order form', this.props)
-    const {setOrders, orders} = this.props
+    const { setOrders } = this.props
     e.preventDefault();
     let order = {name: this.state.name, ingredients: this.state.ingredients}
     let ordersArray = this.props.orders
@@ -81,7 +81,5 @@ export const mapDispatchToProps = dispatch => (
     setOrders,
   }, dispatch)
 );
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderForm)
