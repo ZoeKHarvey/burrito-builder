@@ -3,7 +3,7 @@ export const getOrders = () => {
       .then(response => response.json())
 }
 
-export const postOrder = (newOrder) => {
+export const postNewOrder = (newOrder) => {
   const options = {
     method: 'POST',
     body: JSON.stringify(newOrder),

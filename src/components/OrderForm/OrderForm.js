@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { setOrders } from '../../actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { postNewOrder } from '../../apiCalls'
 
 class OrderForm extends Component {
   constructor(props) {
@@ -29,7 +30,9 @@ class OrderForm extends Component {
     let order = {name: this.state.name, ingredients: this.state.ingredients}
     let ordersArray = this.props.orders
     let newOrdersArray = ordersArray.push(order)
-    setOrders(ordersArray)
+    // setOrders(ordersArray)
+    postNewOrder(order)
+      .then(setOrders(ordersArray))
     this.clearInputs();
   }
 
