@@ -20,8 +20,6 @@ export const App = ({orders}) =>  {
     );
   }
 
-
-
 export default App;
 
 // Remove Redux from the App component

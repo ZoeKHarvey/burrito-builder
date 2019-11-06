@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { setOrders } from '../../actions';
 
 class OrderForm extends Component {
   constructor(props) {
@@ -20,9 +21,12 @@ class OrderForm extends Component {
   }
 
   handleSubmit = e => {
+    console.log('state', this.state)
     e.preventDefault();
+    setOrders({name: this.state.name, ingredients: this.state.ingredients})
     this.clearInputs();
   }
+
 
   clearInputs = () => {
     this.setState({name: '', ingredients: []});
@@ -38,6 +42,8 @@ class OrderForm extends Component {
       )
     });
 
+    
+
     return (
       <form>
         <input
@@ -51,7 +57,7 @@ class OrderForm extends Component {
         { ingredientButtons }
 
         <p>Order: { this.state.ingredients.join(', ') || 'Nothing selected' }</p>
-
+        {this.state.ingredients.length === 0 && <button disabled>Submit</button>}
         <button onClick={e => this.handleSubmit(e)}>
           Submit Order
         </button>
@@ -59,5 +65,7 @@ class OrderForm extends Component {
     )
   }
 }
+
+
 
 export default OrderForm;
