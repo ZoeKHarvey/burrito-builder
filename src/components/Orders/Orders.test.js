@@ -17,7 +17,18 @@ import React from 'react';
   
   describe('mapStateToProps', () => {
     it('should return an object with', () => {
-    
+      let orders;
+      const mockState = {
+      orders
+      };
+      const expected = {
+      orders
+      };
+
+      orders = [{ name: 'me', ingredients: ['cheese']}]
+
+      const mappedProps = mapStateToProps(mockState);
+      expect(mappedProps).toEqual(expected)
     });
     })
    
