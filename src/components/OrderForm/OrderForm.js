@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import { setOrders } from '../../actions';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { postNewOrder } from '../../apiCalls'
 
-class OrderForm extends Component {
+export class OrderForm extends Component {
   constructor(props) {
     super();
     this.props = props;
@@ -8,7 +12,7 @@ class OrderForm extends Component {
       name: '',
       ingredients: []
     };
-  }
+  };
 
   handleNameChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -20,9 +24,17 @@ class OrderForm extends Component {
   }
 
   handleSubmit = e => {
+    console.log('props in order form', this.props)
+    const { setOrders } = this.props
     e.preventDefault();
+    let order = {name: this.state.name, ingredients: this.state.ingredients}
+    let ordersArray = this.props.orders
+    let newOrdersArray = ordersArray.push(order)
+    postNewOrder(order)
+      .then(setOrders(ordersArray))
     this.clearInputs();
   }
+
 
   clearInputs = () => {
     this.setState({name: '', ingredients: []});
@@ -51,13 +63,23 @@ class OrderForm extends Component {
         { ingredientButtons }
 
         <p>Order: { this.state.ingredients.join(', ') || 'Nothing selected' }</p>
-
-        <button onClick={e => this.handleSubmit(e)}>
+          {this.state.ingredients.length === 0 && <button disabled>Submit Order</button>}
+          {this.state.ingredients.length > 0 && <button onClick={e => this.handleSubmit(e)}>
           Submit Order
-        </button>
+        </button>}
       </form>
     )
   }
 }
 
-export default OrderForm;
+export const mapStateToProps = ({ orders }) => ({
+  orders
+});
+
+export const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    setOrders,
+  }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderForm)
