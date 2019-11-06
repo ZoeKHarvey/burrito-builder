@@ -14,28 +14,26 @@ export class Orders extends Component {
       .catch(err => console.error('Error fetching:', err));
   }
 
-  orderEls = () => {
-    console.log('props--->', this.props)
-    const { orders } = this.props
-     orders.map(order => {
-    return (
-      <div className="order">
-        <h3>{order.name}</h3>
-        <ul className="ingredient-list">
-          {order.ingredients.map(ingredient => {
-            return <li>{ingredient}</li>
-          })}
-        </ul>
-      </div>
-    )
-  });
-}
+
 
   render() {
+   const { orders } = this.props
+   const orderEls = orders.map(order => {
+   return (
+     <div className="order">
+       <h3>{order.name}</h3>
+       <ul className="ingredient-list">
+         {order.ingredients.map(ingredient => {
+           return <li>{ingredient}</li>
+         })}
+       </ul>
+     </div>
+   )
+ });
   return (
     <section>
-      {/* { this.orderEls() } */}
-      { this.orderEls.length ? this.orderEls : <p>No orders yet!</p> }
+      { orderEls }
+      { orderEls.length ? orderEls : <p>No orders yet!</p> }
     </section>
   )
 }
