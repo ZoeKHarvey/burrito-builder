@@ -12,10 +12,10 @@ export const App = ({orders}) =>  {
       <main className="App">
         <header>
           <h1>Burrito Builder</h1>
-          <OrderForm key={Date.now()} />
+          <OrderForm />
         </header>
         
-        <Orders key={Date.now()} orders={orders}/>
+        <Orders orders={orders}/>
       </main>
     );
   }
