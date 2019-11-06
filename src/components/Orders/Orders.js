@@ -28,10 +28,9 @@ export class Orders extends Component {
      </div>
    )
  });
- 
+
   return (
     <section>
-      { orderEls }
       { orderEls.length ? orderEls : <p>No orders yet!</p> }
     </section>
   )
