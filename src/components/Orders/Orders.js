@@ -14,8 +14,6 @@ export class Orders extends Component {
       .catch(err => console.error('Error fetching:', err));
   }
 
-
-
   render() {
    const { orders } = this.props
    const orderEls = orders.map(order => {
@@ -30,6 +28,7 @@ export class Orders extends Component {
      </div>
    )
  });
+ 
   return (
     <section>
       { orderEls }
