@@ -12,7 +12,7 @@ class OrderForm extends Component {
       name: '',
       ingredients: []
     };
-  }
+  };
 
   handleNameChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -30,7 +30,6 @@ class OrderForm extends Component {
     let order = {name: this.state.name, ingredients: this.state.ingredients}
     let ordersArray = this.props.orders
     let newOrdersArray = ordersArray.push(order)
-    // setOrders(ordersArray)
     postNewOrder(order)
       .then(setOrders(ordersArray))
     this.clearInputs();
