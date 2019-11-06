@@ -7,12 +7,14 @@ import { setOrders } from '../../actions';
 
 export class Orders extends Component {
 
-  componentDidMount() {
+componentDidMount() {
     const {setOrders} = this.props
     getOrders()
       .then(data => setOrders(data.orders))
       .catch(err => console.error('Error fetching:', err));
   }
+
+
 
   render() {
    const { orders } = this.props

@@ -15,8 +15,17 @@ import { setOrders } from '../../actions/index';
   
 	  it('should match the snapshot', () => {
 	    expect(wrapper).toMatchSnapshot();
-	  });
-  });
+    });
+    
+    it('should update local state when handleChange is called', () => {
+      const mockEvent = {target: {name: 'MyName', ingredients:['bread'] }}
+      const expected = 'MyName'
+
+      wrapper.instance().handleNameChange(mockEvent);
+      expect(wrapper.state('name')).toEqual(expected)
+    });
+  })
+ 
   
   describe('mapDispatchToProps', () => {
     let mockDispatch;
