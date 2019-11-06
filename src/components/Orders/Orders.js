@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { getOrders } from '../../apiCalls';
 import './Orders.css';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setOrders } from '../../actions';
 
-const Orders = props => {
-  const orderEls = props.orders.map(order => {
+export class Orders extends Component {
+
+  componentDidMount() {
+    const {setOrders} = this.props
+    console.log(this.props)
+    getOrders()
+      .then(data => setOrders(data.orders))
+      .catch(err => console.error('Error fetching:', err));
+  }
+
+  orderEls = () => {
+    const {props} = this.props
+     props.orders.map(order => {
     return (
       <div className="order">
         <h3>{order.name}</h3>
@@ -14,12 +29,25 @@ const Orders = props => {
       </div>
     )
   });
+}
 
+  render() {
   return (
     <section>
-      { orderEls.length ? orderEls : <p>No orders yet!</p> }
+      { this.orderEls.length ? this.orderEls : <p>No orders yet!</p> }
     </section>
   )
 }
+}
 
-export default Orders;
+export const mapStateToProps = ({ orders }) => ({
+  orders
+});
+
+export const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    setOrders,
+  }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Orders)
