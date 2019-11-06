@@ -12,17 +12,12 @@ export const App = ({orders}) =>  {
       <main className="App">
         <header>
           <h1>Burrito Builder</h1>
-          <OrderForm />
+          <OrderForm key={Date.now()} />
         </header>
         
-        <Orders orders={orders}/>
+        <Orders key={Date.now()} orders={orders}/>
       </main>
     );
   }
 
 export default App;
-
-// Remove Redux from the App component
-// and move that functionality to the Orders component. 
-//Make App into a functional component, 
-//and bring in the burrito orders directly into the Orders component instead.

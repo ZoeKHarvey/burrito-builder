@@ -9,15 +9,15 @@ export class Orders extends Component {
 
   componentDidMount() {
     const {setOrders} = this.props
-    console.log(this.props)
     getOrders()
       .then(data => setOrders(data.orders))
       .catch(err => console.error('Error fetching:', err));
   }
 
   orderEls = () => {
-    const {props} = this.props
-     props.orders.map(order => {
+    console.log('props--->', this.props)
+    const { orders } = this.props
+     orders.map(order => {
     return (
       <div className="order">
         <h3>{order.name}</h3>
@@ -34,6 +34,7 @@ export class Orders extends Component {
   render() {
   return (
     <section>
+      {/* { this.orderEls() } */}
       { this.orderEls.length ? this.orderEls : <p>No orders yet!</p> }
     </section>
   )

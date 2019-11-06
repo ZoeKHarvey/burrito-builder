@@ -23,10 +23,13 @@ class OrderForm extends Component {
   }
 
   handleSubmit = e => {
-    const {setOrders} = this.props
+    console.log('props in order form', this.props)
+    const {setOrders, orders} = this.props
     e.preventDefault();
-    let orders = {name: this.state.name, ingredients: this.state.ingredients}
-    setOrders([orders])
+    let order = {name: this.state.name, ingredients: this.state.ingredients}
+    let ordersArray = this.props.orders
+    let newOrdersArray = ordersArray.push(order)
+    setOrders(ordersArray)
     this.clearInputs();
   }
 
@@ -67,6 +70,10 @@ class OrderForm extends Component {
   }
 }
 
+export const mapStateToProps = ({ orders }) => ({
+  orders
+});
+
 export const mapDispatchToProps = dispatch => (
   bindActionCreators({
     setOrders,
@@ -75,4 +82,4 @@ export const mapDispatchToProps = dispatch => (
 
 
 
-export default connect(null, mapDispatchToProps)(OrderForm)
+export default connect(mapStateToProps, mapDispatchToProps)(OrderForm)
